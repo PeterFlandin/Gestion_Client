@@ -29,6 +29,12 @@ public class DetailsClilent {
 	return this.email;
     }
 
+    public DetailsClilent(String email, Integer telephone) {
+	super();
+	this.email = email;
+	this.telephone = telephone;
+    }
+
     public void setEmail(String email) {
 	this.email = email;
     }
