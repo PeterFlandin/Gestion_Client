@@ -1,10 +1,8 @@
-package com.cgi.Gestion_clients.entity;
+package com.cgi.gestion_clients.entity;
 
-import static jakarta.persistence.CascadeType.DETACH;
-import static jakarta.persistence.CascadeType.MERGE;
-import static jakarta.persistence.CascadeType.PERSIST;
-import static jakarta.persistence.CascadeType.REFRESH;
+import static jakarta.persistence.CascadeType.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,50 +18,69 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Commande {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String details;
-    @ManyToOne(cascade = { PERSIST, MERGE, DETACH, REFRESH })
-    @JoinColumn(name = "id_client")
-    @JsonIgnoreProperties
-    private Client client;
-    @ManyToMany
-    @JoinTable(name = "commande_produit", joinColumns = @JoinColumn(name = "id_commande"), inverseJoinColumns = @JoinColumn(name = "id_produit"))
-    private List<Produit> produits;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+	private String details;
+	@ManyToOne(cascade= {PERSIST, MERGE, DETACH, REFRESH})
+	@JoinColumn(name = "id_client")
+	@JsonIgnoreProperties
+	private Client client;
+	@ManyToMany
+	@JoinTable(
+			name="commande_prduit", // nom de la table d'association
+			joinColumns = @JoinColumn(name="id_commande"),
+			inverseJoinColumns = @JoinColumn(name="id_produit")	
+			)
+	private List<Produit> produits; 
+	
+	public Commande() {
+		
+	}
 
-    public Commande() {
+	public Commande(String details, Client client) {
+		super();
+		this.details = details;
+		this.client = client;
+	}
 
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Commande(String details, Client client) {
-	super();
-	this.details = details;
-	this.client = client;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getId() {
-	return id;
-    }
+	public String getDetails() {
+		return details;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public void setDetails(String details) {
+		this.details = details;
+	}
 
-    public String getDetails() {
-	return details;
-    }
+	public Client getClient() {
+		return client;
+	}
 
-    public void setDetails(String details) {
-	this.details = details;
-    }
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
+	
+	public List<Produit> getProduits() {
+		return produits;
+	}
 
-    public Client getClient() {
-	return client;
-    }
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
+	}
 
-    public void setClient(Client client) {
-	this.client = client;
-    }
-
+	public void addProduit(Produit produit) {
+		if(this.produits == null) {
+			this.produits = new ArrayList<Produit>();
+		}
+		this.produits.add(produit);
+	}
 }

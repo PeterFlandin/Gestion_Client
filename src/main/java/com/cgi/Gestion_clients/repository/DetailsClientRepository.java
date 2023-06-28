@@ -1,9 +1,11 @@
-package com.cgi.Gestion_clients.repository;
+package com.cgi.gestion_clients.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.cgi.Gestion_clients.entity.DetailsClient;
+import com.cgi.gestion_clients.entity.DetailsClient;
 
-public interface DetailsClientRepository extends JpaRepository<DetailsClient, Integer> {
+@Repository 
+public interface DetailsClientRepository extends JpaRepository<DetailsClient, Integer>{
 
 }

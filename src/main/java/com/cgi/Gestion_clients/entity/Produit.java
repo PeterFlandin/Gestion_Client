@@ -1,7 +1,9 @@
-package com.cgi.Gestion_clients.entity;
+package com.cgi.gestion_clients.entity;
 
 import java.util.List;
-import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,83 +16,62 @@ import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Produit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @Column(nullable = false)
-    private String libelle;
-    @Column(nullable = false)
-    private Double prix;
-    @ManyToMany
-    @JoinTable(name = "commande_produit", joinColumns = @JoinColumn(name = "id_produit"), inverseJoinColumns = @JoinColumn(name = "id_commande"))
-    private List<Commande> commandes;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+	@Column(nullable = false)
+	private String libelle;
+	@Column(nullable = false)
+	private Double prix;
+	@ManyToMany
+	@JoinTable(
+			name="commande_prduit", // nom de la table d'association
+			joinColumns = @JoinColumn(name="id_produit"),
+			inverseJoinColumns = @JoinColumn(name="id_commande")	
+			)
+	@JsonIgnore
+	private List<Commande> commandes;
+	
+	public Produit() {
+	}
 
-    public Integer getId() {
-	return this.id;
-    }
+	public Produit(String libelle, Double prix, List<Commande> commandes) {
+		super();
+		this.libelle = libelle;
+		this.prix = prix;
+		this.commandes = commandes;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getLibelle() {
-	return this.libelle;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setLibelle(String libelle) {
-	this.libelle = libelle;
-    }
+	public String getLibelle() {
+		return libelle;
+	}
 
-    public Double getPrix() {
-	return this.prix;
-    }
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
 
-    public void setPrix(Double prix) {
-	this.prix = prix;
-    }
+	public Double getPrix() {
+		return prix;
+	}
 
-    public List<Commande> getCommandes() {
-	return this.commandes;
-    }
+	public void setPrix(Double prix) {
+		this.prix = prix;
+	}
 
-    public void setCommandes(List<Commande> commandes) {
-	this.commandes = commandes;
-    }
+	public List<Commande> getCommandes() {
+		return commandes;
+	}
 
-    public Produit() {
-	super();
-	// TODO Auto-generated constructor stub
-    }
-
-    public Produit(String libelle, Double prix, List<Commande> commandes) {
-	super();
-	this.libelle = libelle;
-	this.prix = prix;
-	this.commandes = commandes;
-    }
-
-    @Override
-    public int hashCode() {
-	return Objects.hash(commandes, id, libelle, prix);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Produit other = (Produit) obj;
-	return Objects.equals(this.commandes, other.commandes) && Objects.equals(this.id, other.id)
-		&& Objects.equals(this.libelle, other.libelle) && Objects.equals(this.prix, other.prix);
-    }
-
-    @Override
-    public String toString() {
-	return "Produit [id=" + this.id + ", libelle=" + this.libelle + ", prix=" + this.prix + ", commandes="
-		+ this.commandes + "]";
-    }
-
+	public void setCommandes(List<Commande> commandes) {
+		this.commandes = commandes;
+	}
+	
 }

@@ -1,19 +1,19 @@
-package com.cgi.Gestion_clients;
+package com.cgi.gestion_clients;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GestionClientsApplication {
+public class GestionClientsApplication{
 //	@Autowired
 //	ClientRepository clientRepository;
 //	
 //	@Autowired
 //	DetailsClientRepository dcRepository;
 
-    public static void main(String[] args) {
-	SpringApplication.run(GestionClientsApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(GestionClientsApplication.class, args);
+	}
 
 //	@Override
 //	public void run(String... args) throws Exception {

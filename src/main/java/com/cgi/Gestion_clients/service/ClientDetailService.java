@@ -3,10 +3,12 @@ package com.cgi.Gestion_clients.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cgi.Gestion_clients.entity.DetailsClient;
 import com.cgi.Gestion_clients.repository.DetailsClientRepository;
 
+@Service
 public class ClientDetailService {
 
     @Autowired

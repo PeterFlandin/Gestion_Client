@@ -1,9 +1,9 @@
-package com.cgi.Gestion_clients.repository;
+package com.cgi.gestion_clients.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cgi.Gestion_clients.entity.Client;
+import com.cgi.gestion_clients.entity.Client;
 
-public interface ClientRepository extends JpaRepository<Client, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Integer>{
 
 }
