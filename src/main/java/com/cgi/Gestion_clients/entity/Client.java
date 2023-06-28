@@ -1,13 +1,19 @@
 package com.cgi.Gestion_clients.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -19,12 +25,26 @@ public class Client {
     private String nom;
     @Column(nullable = false)
     private String adresse;
-    @OneToOne
-    @JoinColumn(name = "id_detail_clients")
-    private DetailsClilent detailsClilent;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_details_client")
+    @JsonManagedReference
+    private DetailsClient detailsClient;
+    @OneToMany(mappedBy = "client")
+    private List<Commande> commandes;
+
+    public Client() {
+
+    }
+
+    public Client(String nom, String adresse, DetailsClient detailsClient) {
+	super();
+	this.nom = nom;
+	this.adresse = adresse;
+	this.detailsClient = detailsClient;
+    }
 
     public Integer getId() {
-	return this.id;
+	return id;
     }
 
     public void setId(Integer id) {
@@ -32,7 +52,7 @@ public class Client {
     }
 
     public String getNom() {
-	return this.nom;
+	return nom;
     }
 
     public void setNom(String nom) {
@@ -40,36 +60,39 @@ public class Client {
     }
 
     public String getAdresse() {
-	return this.adresse;
+	return adresse;
     }
 
     public void setAdresse(String adresse) {
 	this.adresse = adresse;
     }
 
-    public DetailsClilent getDetailsClilent() {
-	return this.detailsClilent;
+    public DetailsClient getDetailsClient() {
+	return detailsClient;
     }
 
-    public void setDetailsClilent(DetailsClilent detailsClilent) {
-	this.detailsClilent = detailsClilent;
+    public void setDetailsClient(DetailsClient detailsClient) {
+	this.detailsClient = detailsClient;
     }
 
-    public Client() {
-	super();
-	// TODO Auto-generated constructor stub
+    public List<Commande> getCommandes() {
+	return commandes;
     }
 
-    public Client(String nom, String adresse, DetailsClilent detailsClilent) {
-	super();
-	this.nom = nom;
-	this.adresse = adresse;
-	this.detailsClilent = detailsClilent;
+    public void setCommandes(List<Commande> commandes) {
+	this.commandes = commandes;
+    }
+
+    public void addCommande(Commande commande) {
+	if (this.commandes == null) {
+	    this.commandes = new ArrayList<Commande>();
+	}
+	this.commandes.add(commande);
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(adresse, detailsClilent, id, nom);
+	return Objects.hash(adresse, detailsClient, id, nom);
     }
 
     @Override
@@ -81,8 +104,13 @@ public class Client {
 	if (getClass() != obj.getClass())
 	    return false;
 	Client other = (Client) obj;
-	return Objects.equals(this.adresse, other.adresse) && Objects.equals(this.detailsClilent, other.detailsClilent)
-		&& Objects.equals(this.id, other.id) && Objects.equals(this.nom, other.nom);
+	return Objects.equals(adresse, other.adresse) && Objects.equals(detailsClient, other.detailsClient)
+		&& Objects.equals(id, other.id) && Objects.equals(nom, other.nom);
+    }
+
+    @Override
+    public String toString() {
+	return "Client [id=" + id + ", nom=" + nom + ", adresse=" + adresse + ", detailsClient=" + detailsClient + "]";
     }
 
 }

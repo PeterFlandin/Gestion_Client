@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cgi</groupId>
-	<artifactId>Gestion_clients</artifactId>
+	<artifactId>gestion_clients</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Gestion Clients</name>
 	<description>Demo Spring data (Hibernate)</description>
